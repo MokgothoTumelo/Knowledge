@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge | Academic Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><i data-lucide="graduation-cap"></i></span>
+      <span>
+        <strong>Know<span>ledge</span></strong>
+        <small>Learn. Prepare. Succeed.</small>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a class="active" href="index.html"><i data-lucide="house"></i>Home</a>
+      <a href="papers.html"><i data-lucide="file-text"></i>Question Papers</a>
+      <a href="books.html"><i data-lucide="book-open"></i>Books</a>
+      <a href="#tutorials"><i data-lucide="play-square"></i>Tutorials</a>
+      <a href="#library"><i data-lucide="bookmark"></i>My Library</a>
+      <a href="#"><i data-lucide="download"></i>Downloads</a>
+      <a href="favorites.html"><i data-lucide="heart"></i>Favorites</a>
+      <a href="#"><i data-lucide="blocks"></i>Subjects</a>
+      <a href="#"><i data-lucide="megaphone"></i>Announcements</a>
+      <a href="#"><i data-lucide="user-round"></i>Profile</a>
+      <a href="#"><i data-lucide="settings"></i>Settings</a>
+    </nav>
+
+    <div class="organize-card">
+      <h4>Stay Organized</h4>
+      <p>Save your favorite resources and access them anytime.</p>
+      <button>Explore My Library</button>
+      <div class="folders">
+        <i data-lucide="folder"></i>
+        <i data-lucide="folder-open"></i>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="mobile-menu"><i data-lucide="menu"></i></button>
+
+      <label class="search">
+        <i data-lucide="search"></i>
+        <input id="searchInput" placeholder="Search for books, question papers, tutorials..." />
+      </label>
+
+      <div class="top-actions">
+        <button class="notification">
+          <i data-lucide="bell"></i>
+          <b>3</b>
+        </button>
+        <div class="auth-area" id="authArea"></div>
+      </div>
+    </header>
+
+    <section class="page-content">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR STUDY COMPANION</p>
+          <h1>All Your Academic<br />Resources in One Place</h1>
+          <p>Access question papers, books, and recorded tutorials anytime, anywhere. Learn smarter and achieve more.</p>
+          <button class="primary">
+            Explore Resources <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="hero-visual">
+          <div class="circle circle-one"></div>
+          <div class="circle circle-two"></div>
+          <div class="book-stack"><b></b><b></b><b></b></div>
+          <div class="plant">🌿</div>
+          <div class="laptop">
+            <div class="screen">
+              <div class="screen-bar"></div>
+              <span></span><span></span><span></span>
+              <em></em><em></em><em></em>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-links">
+        <article class="quick purple">
+          <div class="icon-box"><i data-lucide="files"></i></div>
+          <div>
+            <h3>Question Papers</h3>
+            <p>Previous year papers<br />and exam papers</p>
+            <a href="papers.html">Explore Papers <i data-lucide="arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="quick green">
+          <div class="icon-box"><i data-lucide="book-open"></i></div>
+          <div>
+            <h3>Books</h3>
+            <p>Textbooks, reference<br />books and more</p>
+            <a href="books.html">Browse Books <i data-lucide="arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="quick orange">
+          <div class="icon-box"><i data-lucide="play"></i></div>
+          <div>
+            <h3>Tutorials</h3>
+            <p>Recorded lectures and<br />tutorial sessions</p>
+            <a href="#tutorials">Watch Now <i data-lucide="arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="quick blue">
+          <div class="icon-box"><i data-lucide="bookmark"></i></div>
+          <div>
+            <h3>My Library</h3>
+            <p>Your saved resources<br />in one place</p>
+            <a href="#library">View Library <i data-lucide="arrow-right"></i></a>
+          </div>
+        </article>
+      </section>
+
+      <!-- Continue Reading / Recently Viewed -->
+      <section class="recently-viewed" id="recentlyViewed" hidden></section>
+
+      <section class="explore">
+        <div class="section-heading">
+          <div>
+            <h2>Explore by Category</h2>
+            <div class="filters">
+              <button class="selected">All</button>
+              <button>Engineering</button>
+              <button>Science</button>
+              <button>Commerce</button>
+              <button>Arts</button>
+              <button>Management</button>
+              <button>Law</button>
+            </div>
+          </div>
+          <a href="#">View All <i data-lucide="chevron-right"></i></a>
+        </div>
+
+        <div class="resource-grid">
+          <article class="resource-card" id="papers">
+            <div class="card-title">
+              <span class="mini-icon purple-icon"><i data-lucide="file-text"></i></span>
+              <h3>Question Papers</h3>
+              <a href="#">View All <i data-lucide="chevron-right"></i></a>
+            </div>
+
+            <ul class="paper-list">
+              <li>
+                <span class="file-icon"><i data-lucide="file-text"></i></span>
+                <div><strong>Data Structures - 2023</strong><small>PDF · 2.4 MB</small></div>
+                <button><i data-lucide="download"></i></button>
+              </li>
+              <li>
+                <span class="file-icon"><i data-lucide="file-text"></i></span>
+                <div><strong>Engineering Mathematics - 2022</strong><small>PDF · 1.8 MB</small></div>
+                <button><i data-lucide="download"></i></button>
+              </li>
+              <li>
+                <span class="file-icon"><i data-lucide="file-text"></i></span>
+                <div><strong>Database Management Systems - 2023</strong><small>PDF · 2.1 MB</small></div>
+                <button><i data-lucide="download"></i></button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="resource-card" id="books">
+            <div class="card-title">
+              <span class="mini-icon green-icon"><i data-lucide="book-open"></i></span>
+              <h3>Books</h3>
+              <a href="books.html">View All <i data-lucide="chevron-right"></i></a>
+            </div>
+
+            <ul class="book-list">
+              <li>
+                <div class="book-cover navy">DATA<br /><small>STRUCTURES</small></div>
+                <div><strong>Data Structures and Algorithms in C++</strong><small>by Mark Allen Weiss</small></div>
+                <button><i data-lucide="download"></i></button>
+              </li>
+              <li>
+                <div class="book-cover gold">OPERATING<br /><small>SYSTEMS</small></div>
+                <div><strong>Operating System Concepts<br />9th Edition</strong><small>by Abraham Silberschatz</small></div>
+                <button><i data-lucide="download"></i></button>
+              </li>
+              <li>
+                <div class="book-cover teal">ENGINEERING<br /><small>MATHEMATICS</small></div>
+                <div><strong>Engineering Mathematics<br />Vol. 1</strong><small>by B. S. Grewal</small></div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="resource-card" id="tutorials">
+            <div class="card-title">
+              <span class="mini-icon orange-icon"><i data-lucide="play"></i></span>
+              <h3>Tutorials</h3>
+              <a href="#">View All <i data-lucide="chevron-right"></i></a>
+            </div>
+
+            <ul class="video-list">
+              <li>
+                <div class="video-thumb one"><i data-lucide="play"></i></div>
+                <div><strong>Data Structures – Full Course</strong><small>Prof. John Doe</small></div>
+                <time>1:24:30</time>
+              </li>
+              <li>
+                <div class="video-thumb two"><i data-lucide="play"></i></div>
+                <div><strong>Database Management System</strong><small>Prof. Jane Smith</small></div>
+                <time>1:05:15</time>
+              </li>
+              <li>
+                <div class="video-thumb three"><i data-lucide="play"></i></div>
+                <div><strong>Discrete Mathematics</strong><small>Prof. Alex Brown</small></div>
+                <time>58:40</time>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" role="status"></div>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

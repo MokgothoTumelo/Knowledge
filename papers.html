@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question Papers | Knowledge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ===== QUESTION PAPERS PAGE (embedded) ===== */
+    .page-header {
+      margin-bottom: 28px;
+    }
+
+    .page-header-copy .eyebrow {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: #2767c8;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .page-header-copy h1 {
+      font: 800 32px/1.25 "Plus Jakarta Sans";
+      letter-spacing: -1px;
+      margin: 0 0 10px;
+      color: #102243;
+    }
+
+    .page-header-copy > p {
+      font-size: 16px;
+      line-height: 1.55;
+      color: #526177;
+      margin: 0;
+      max-width: 580px;
+    }
+
+    .papers-controls {
+      margin-bottom: 22px;
+    }
+
+    .papers-controls .section-heading {
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .papers-controls h2 {
+      font: 700 17px "Plus Jakarta Sans";
+      margin: 0 0 12px;
+    }
+
+    .paper-count {
+      font-size: 13px;
+      color: #657083;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #657083;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .year-filters,
+    .subject-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .year-filters button,
+    .subject-filters button {
+      border: 0;
+      background: #f1f3f7;
+      color: #4b5567;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font: 13px "DM Sans";
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .year-filters button:hover,
+    .subject-filters button:hover {
+      background: #e6ecf5;
+    }
+
+    .year-filters button.selected,
+    .subject-filters button.selected {
+      color: #fff;
+      background: #1668ed;
+      box-shadow: 0 3px 8px #1a69e940;
+    }
+
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .paper-card {
+      border: 1px solid #e6e9ef;
+      border-radius: 14px;
+      background: #fff;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .paper-card:hover {
+      border-color: #c5d4f0;
+      box-shadow: 0 8px 22px #1268ed12;
+    }
+
+    .paper-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .paper-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #f1edff;
+      color: #7049dc;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .paper-icon i {
+      width: 22px;
+      height: 22px;
+    }
+
+    .paper-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .paper-year-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1668ed;
+      background: #eaf1ff;
+      padding: 3px 8px;
+      border-radius: 5px;
+      margin-bottom: 6px;
+    }
+
+    .paper-meta h3 {
+      font: 700 14px/1.35 "Plus Jakarta Sans";
+      margin: 0 0 4px;
+      color: #102243;
+    }
+
+    .paper-subject {
+      font-size: 12px;
+      color: #657083;
+      margin: 0;
+    }
+
+    .paper-info-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: #6c7484;
+      padding-top: 2px;
+    }
+
+    .paper-info-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .paper-info-row i {
+      width: 14px;
+      height: 14px;
+    }
+
+    .paper-card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .paper-card-actions .primary,
+    .paper-card-actions .secondary-btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 13px;
+      padding: 11px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      border-radius: 7px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 0;
+    }
+
+    .paper-card-actions .primary i,
+    .paper-card-actions .secondary-btn i {
+      width: 15px;
+    }
+
+    .secondary-btn {
+      background: #f1f4f9;
+      color: #1d3a6e;
+      box-shadow: none;
+    }
+
+    .secondary-btn:hover {
+      background: #e6ecf5;
+    }
+
+    /* Empty state */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: #657083;
+    }
+
+    .empty-state i {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 14px;
+      color: #a0aec0;
+    }
+
+    .empty-state h3 {
+      font: 700 18px "Plus Jakarta Sans";
+      margin: 0 0 8px;
+      color: #102243;
+    }
+
+    .empty-state p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* ===== PAPER DETAIL MODAL ===== */
+    .paper-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .paper-modal[hidden] {
+      display: none;
+    }
+
+    .paper-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: #0f1c3380;
+      backdrop-filter: blur(4px);
+    }
+
+    .paper-modal-panel {
+      position: relative;
+      background: #fff;
+      border-radius: 18px;
+      max-width: 560px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px #0f1c3340;
+      z-index: 1;
+    }
+
+    .paper-modal .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      border: 0;
+      background: #f1f4f9;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: #405069;
+      z-index: 2;
+    }
+
+    .paper-modal .modal-close:hover {
+      background: #e6ecf5;
+    }
+
+    .paper-modal .modal-close i {
+      width: 18px;
+    }
+
+    .paper-modal-body {
+      padding: 36px 32px 28px;
+    }
+
+    .paper-modal-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: #f1edff;
+      color: #7049dc;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+    }
+
+    .paper-modal-icon i {
+      width: 28px;
+      height: 28px;
+    }
+
+    .paper-modal-body .modal-year {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1668ed;
+      background: #eaf1ff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .paper-modal-body h2 {
+      font: 800 22px/1.3 "Plus Jakarta Sans";
+      margin: 0 0 8px;
+      color: #102243;
+      letter-spacing: -0.4px;
+    }
+
+    .paper-modal-body .modal-subject {
+      font-size: 15px;
+      color: #526177;
+      margin: 0 0 6px;
+    }
+
+    .paper-modal-body .modal-meta {
+      font-size: 13px;
+      color: #7a8499;
+      margin: 0 0 18px;
+    }
+
+    .paper-modal-body .modal-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #3d4a61;
+      margin: 0 0 24px;
+    }
+
+    .paper-modal-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .paper-modal-actions .primary,
+    .paper-modal-actions .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border-radius: 8px;
+      font: 600 14px "DM Sans";
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .paper-modal-actions .primary {
+      background: #1668ed;
+      color: white;
+      box-shadow: 0 5px 10px #1268ed33;
+    }
+
+    .paper-modal-actions .secondary-btn {
+      background: #f1f4f9;
+      color: #1d3a6e;
+    }
+
+    .paper-modal-actions .primary i,
+    .paper-modal-actions .secondary-btn i {
+      width: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1170px) {
+      .papers-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 830px) {
+      .page-header-copy h1 {
+        font-size: 28px;
+      }
+
+      .papers-controls .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .paper-modal {
+        padding: 12px;
+        align-items: flex-end;
+      }
+
+      .paper-modal-panel {
+        width: 100%;
+        max-width: 100%;
+        max-height: 92vh;
+        border-radius: 16px 16px 0 0;
+        overflow-y: auto;
+      }
+    }
+
+    @media (max-width: 570px) {
+      .papers-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .paper-card {
+        padding: 14px;
+      }
+
+      .paper-card-actions {
+        flex-direction: column;
+      }
+
+      .paper-card-actions .primary,
+      .paper-card-actions .secondary-btn {
+        width: 100%;
+      }
+
+      .page-header-copy h1 {
+        font-size: 24px;
+      }
+
+      .page-header-copy > p {
+        font-size: 14px;
+      }
+
+      .year-filters,
+      .subject-filters {
+        gap: 6px;
+      }
+
+      .year-filters button,
+      .subject-filters button {
+        padding: 7px 11px;
+        font-size: 12px;
+      }
+
+      .paper-modal-body {
+        padding: 20px 16px;
+      }
+
+      .paper-modal-actions {
+        flex-direction: column;
+      }
+
+      .paper-modal-actions .primary,
+      .paper-modal-actions .secondary-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><i data-lucide="graduation-cap"></i></span>
+      <span>
+        <strong>Know<span>ledge</span></strong>
+        <small>Learn. Prepare. Succeed.</small>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html"><i data-lucide="house"></i>Home</a>
+      <a class="active" href="papers.html"><i data-lucide="file-text"></i>Question Papers</a>
+      <a href="books.html"><i data-lucide="book-open"></i>Books</a>
+      <a href="index.html#tutorials"><i data-lucide="play-square"></i>Tutorials</a>
+      <a href="#"><i data-lucide="bookmark"></i>My Library</a>
+      <a href="#"><i data-lucide="download"></i>Downloads</a>
+      <a href="favorites.html"><i data-lucide="heart"></i>Favorites</a>
+      <a href="#"><i data-lucide="blocks"></i>Subjects</a>
+      <a href="#"><i data-lucide="megaphone"></i>Announcements</a>
+      <a href="#"><i data-lucide="user-round"></i>Profile</a>
+      <a href="#"><i data-lucide="settings"></i>Settings</a>
+    </nav>
+
+    <div class="organize-card">
+      <h4>Stay Organized</h4>
+      <p>Save your favorite resources and access them anytime.</p>
+      <button>Explore My Library</button>
+      <div class="folders">
+        <i data-lucide="folder"></i>
+        <i data-lucide="folder-open"></i>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="mobile-menu"><i data-lucide="menu"></i></button>
+
+      <label class="search">
+        <i data-lucide="search"></i>
+        <input id="searchInput" placeholder="Search question papers..." />
+      </label>
+
+      <div class="top-actions">
+        <button class="notification">
+          <i data-lucide="bell"></i>
+          <b>3</b>
+        </button>
+        <div class="auth-area" id="authArea"></div>
+      </div>
+    </header>
+
+    <section class="page-content">
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="page-header-copy">
+          <p class="eyebrow">EXAM PREP</p>
+          <h1>Question Papers</h1>
+          <p>Review previous year question papers from 2018 to 2026. Browse by year or subject, preview details, and download PDFs to practice offline.</p>
+        </div>
+      </section>
+
+      <!-- Filters -->
+      <section class="papers-controls">
+        <div class="section-heading">
+          <div class="filter-group">
+            <h2>Browse Papers</h2>
+            <div>
+              <p class="filter-label">Year</p>
+              <div class="year-filters" id="yearFilters">
+                <button class="selected" data-year="all">All</button>
+                <button data-year="2026">2026</button>
+                <button data-year="2025">2025</button>
+                <button data-year="2024">2024</button>
+                <button data-year="2023">2023</button>
+                <button data-year="2022">2022</button>
+                <button data-year="2021">2021</button>
+                <button data-year="2020">2020</button>
+                <button data-year="2019">2019</button>
+                <button data-year="2018">2018</button>
+              </div>
+            </div>
+            <div style="margin-top: 12px;">
+              <p class="filter-label">Subject</p>
+              <div class="subject-filters" id="subjectFilters">
+                <button class="selected" data-subject="all">All</button>
+                <button data-subject="engineering">Engineering</button>
+                <button data-subject="science">Science</button>
+                <button data-subject="commerce">Commerce</button>
+                <button data-subject="arts">Arts</button>
+                <button data-subject="management">Management</button>
+                <button data-subject="law">Law</button>
+              </div>
+            </div>
+          </div>
+          <span class="paper-count" id="paperCount">0 papers</span>
+        </div>
+      </section>
+
+      <!-- Papers Grid -->
+      <section class="papers-grid" id="papersGrid">
+        <!-- Cards rendered by JS -->
+      </section>
+    </section>
+  </main>
+
+  <!-- Paper Detail Modal -->
+  <div class="paper-modal" id="paperModal" hidden>
+    <div class="paper-modal-backdrop" data-close-modal></div>
+    <div class="paper-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" data-close-modal aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="paper-modal-body">
+        <div class="paper-modal-icon">
+          <i data-lucide="file-text"></i>
+        </div>
+        <span class="modal-year" id="modalYear"></span>
+        <h2 id="modalTitle"></h2>
+        <p class="modal-subject" id="modalSubject"></p>
+        <p class="modal-meta" id="modalMeta"></p>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="paper-modal-actions">
+          <a class="primary" id="modalView" href="#" target="_blank" rel="noopener">
+            <i data-lucide="eye"></i> Review Paper
+          </a>
+          <a class="secondary-btn" id="modalDownload" href="#" download>
+            <i data-lucide="download"></i> Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" role="status"></div>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    /**
+     * Question Papers data
+     * Replace viewUrl and downloadUrl with real links when ready.
+     * Years: 2018 – 2026
+     */
+    const papers = [
+      {
+        id: "ds-2023",
+        title: "Data Structures – 2023",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2023,
+        size: "2.4 MB",
+        pages: 8,
+        description: "End-semester examination paper covering arrays, linked lists, stacks, queues, trees, and graph algorithms. Includes both theoretical and coding questions.",
+        viewUrl: "#view-ds-2023",
+        downloadUrl: "#download-ds-2023"
+      },
+      {
+        id: "engmath-2022",
+        title: "Engineering Mathematics – 2022",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2022,
+        size: "1.8 MB",
+        pages: 6,
+        description: "Previous year paper on calculus, differential equations, linear algebra, and vector calculus for engineering students.",
+        viewUrl: "#view-engmath-2022",
+        downloadUrl: "#download-engmath-2022"
+      },
+      {
+        id: "dbms-2023",
+        title: "Database Management Systems – 2023",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2023,
+        size: "2.1 MB",
+        pages: 7,
+        description: "Covers relational model, SQL queries, normalization, transactions, and indexing. Suitable for mid and end semester practice.",
+        viewUrl: "#view-dbms-2023",
+        downloadUrl: "#download-dbms-2023"
+      },
+      {
+        id: "os-2024",
+        title: "Operating Systems – 2024",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2024,
+        size: "2.0 MB",
+        pages: 8,
+        description: "Processes, memory management, file systems, concurrency, and deadlock questions from the 2024 end-semester exam.",
+        viewUrl: "#view-os-2024",
+        downloadUrl: "#download-os-2024"
+      },
+      {
+        id: "discrete-2021",
+        title: "Discrete Mathematics – 2021",
+        subject: "science",
+        subjectLabel: "Science",
+        year: 2021,
+        size: "1.6 MB",
+        pages: 6,
+        description: "Logic, sets, combinatorics, graph theory, and number theory. Ideal for computer science foundation practice.",
+        viewUrl: "#view-discrete-2021",
+        downloadUrl: "#download-discrete-2021"
+      },
+      {
+        id: "physics-2020",
+        title: "University Physics – 2020",
+        subject: "science",
+        subjectLabel: "Science",
+        year: 2020,
+        size: "2.5 MB",
+        pages: 10,
+        description: "Mechanics, waves, thermodynamics, and electromagnetism questions from the 2020 examination.",
+        viewUrl: "#view-physics-2020",
+        downloadUrl: "#download-physics-2020"
+      },
+      {
+        id: "calculus-2025",
+        title: "Calculus – 2025",
+        subject: "science",
+        subjectLabel: "Science",
+        year: 2025,
+        size: "1.9 MB",
+        pages: 7,
+        description: "Limits, derivatives, integrals, series, and multivariable calculus. Latest pattern for 2025.",
+        viewUrl: "#view-calculus-2025",
+        downloadUrl: "#download-calculus-2025"
+      },
+      {
+        id: "accounting-2023",
+        title: "Financial Accounting – 2023",
+        subject: "commerce",
+        subjectLabel: "Commerce",
+        year: 2023,
+        size: "1.7 MB",
+        pages: 6,
+        description: "Accounting cycle, financial statements, and analysis. Practice paper for commerce students.",
+        viewUrl: "#view-accounting-2023",
+        downloadUrl: "#download-accounting-2023"
+      },
+      {
+        id: "economics-2022",
+        title: "Principles of Economics – 2022",
+        subject: "commerce",
+        subjectLabel: "Commerce",
+        year: 2022,
+        size: "1.5 MB",
+        pages: 5,
+        description: "Micro and macroeconomics: supply & demand, markets, GDP, inflation, and policy questions.",
+        viewUrl: "#view-economics-2022",
+        downloadUrl: "#download-economics-2022"
+      },
+      {
+        id: "literature-2019",
+        title: "English Literature – 2019",
+        subject: "arts",
+        subjectLabel: "Arts",
+        year: 2019,
+        size: "1.4 MB",
+        pages: 5,
+        description: "Essay and short-answer questions covering major works of English literature across periods.",
+        viewUrl: "#view-literature-2019",
+        downloadUrl: "#download-literature-2019"
+      },
+      {
+        id: "management-2024",
+        title: "Principles of Management – 2024",
+        subject: "management",
+        subjectLabel: "Management",
+        year: 2024,
+        size: "1.8 MB",
+        pages: 6,
+        description: "Planning, organizing, leading, and controlling. Case-based and theory questions from 2024.",
+        viewUrl: "#view-management-2024",
+        downloadUrl: "#download-management-2024"
+      },
+      {
+        id: "law-2021",
+        title: "Constitutional Law – 2021",
+        subject: "law",
+        subjectLabel: "Law",
+        year: 2021,
+        size: "2.2 MB",
+        pages: 8,
+        description: "Judicial review, federalism, fundamental rights, and equal protection questions.",
+        viewUrl: "#view-law-2021",
+        downloadUrl: "#download-law-2021"
+      },
+      {
+        id: "ds-2025",
+        title: "Data Structures – 2025",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2025,
+        size: "2.3 MB",
+        pages: 8,
+        description: "Updated 2025 paper with emphasis on trees, graphs, hashing, and algorithm complexity.",
+        viewUrl: "#view-ds-2025",
+        downloadUrl: "#download-ds-2025"
+      },
+      {
+        id: "dbms-2026",
+        title: "Database Management Systems – 2026",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2026,
+        size: "2.0 MB",
+        pages: 7,
+        description: "Latest pattern paper including NoSQL concepts, advanced SQL, and transaction management.",
+        viewUrl: "#view-dbms-2026",
+        downloadUrl: "#download-dbms-2026"
+      },
+      {
+        id: "os-2018",
+        title: "Operating Systems – 2018",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2018,
+        size: "1.9 MB",
+        pages: 7,
+        description: "Classic OS paper covering process scheduling, memory, and synchronization from 2018.",
+        viewUrl: "#view-os-2018",
+        downloadUrl: "#download-os-2018"
+      },
+      {
+        id: "engmath-2026",
+        title: "Engineering Mathematics – 2026",
+        subject: "engineering",
+        subjectLabel: "Engineering",
+        year: 2026,
+        size: "2.1 MB",
+        pages: 8,
+        description: "Most recent engineering mathematics paper focusing on advanced calculus and linear algebra.",
+        viewUrl: "#view-engmath-2026",
+        downloadUrl: "#download-engmath-2026"
+      }
+    ];
+
+    /* ===== State ===== */
+    const grid = document.getElementById("papersGrid");
+    const countEl = document.getElementById("paperCount");
+    const modal = document.getElementById("paperModal");
+    let activeYear = "all";
+    let activeSubject = "all";
+    let searchQuery = "";
+
+    function renderPapers() {
+      const filtered = papers.filter(p => {
+        const matchYear = activeYear === "all" || String(p.year) === activeYear;
+        const matchSubject = activeSubject === "all" || p.subject === activeSubject;
+        const q = searchQuery.toLowerCase().trim();
+        const matchSearch = !q ||
+          p.title.toLowerCase().includes(q) ||
+          p.subjectLabel.toLowerCase().includes(q) ||
+          String(p.year).includes(q) ||
+          p.description.toLowerCase().includes(q);
+        return matchYear && matchSubject && matchSearch;
+      });
+
+      countEl.textContent = `${filtered.length} paper${filtered.length !== 1 ? "s" : ""}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="file-x"></i>
+            <h3>No papers found</h3>
+            <p>Try a different year, subject, or search term.</p>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      // Sort newest first
+      filtered.sort((a, b) => b.year - a.year);
+
+      grid.innerHTML = filtered.map(p => `
+        <article class="paper-card" data-id="${p.id}">
+          <div class="paper-card-top">
+            <div class="paper-icon"><i data-lucide="file-text"></i></div>
+            <div class="paper-meta">
+              <span class="paper-year-badge">${p.year}</span>
+              <h3>${p.title}</h3>
+              <p class="paper-subject">${p.subjectLabel}</p>
+            </div>
+          </div>
+          <div class="paper-info-row">
+            <span><i data-lucide="file"></i> PDF · ${p.size}</span>
+            <span><i data-lucide="layers"></i> ${p.pages} pages</span>
+          </div>
+          <div class="paper-card-actions">
+            <button class="primary btn-view" data-id="${p.id}">
+              <i data-lucide="eye"></i> Review
+            </button>
+            <a class="secondary-btn btn-download" href="${p.downloadUrl}" data-id="${p.id}">
+              <i data-lucide="download"></i> Download
+            </a>
+            ${typeof favoriteButtonHTML === "function" ? favoriteButtonHTML("paper", p.id) : ""}
+          </div>
+        </article>
+      `).join("");
+
+      lucide.createIcons();
+      bindCardEvents();
+      if (typeof bindFavoriteButtons === "function") bindFavoriteButtons(grid);
+    }
+
+    function bindCardEvents() {
+      document.querySelectorAll(".paper-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest(".btn-download") || e.target.closest(".btn-view")) return;
+          openModal(card.dataset.id);
+        });
+      });
+
+      document.querySelectorAll(".btn-view").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openModal(btn.dataset.id);
+        });
+      });
+
+      document.querySelectorAll(".btn-download").forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const paper = papers.find(p => p.id === link.dataset.id);
+          if (paper && paper.downloadUrl.startsWith("#")) {
+            e.preventDefault();
+            showToast(`Download started for “${paper.title}”`);
+          }
+        });
+      });
+    }
+
+    function openModal(id) {
+      const paper = papers.find(p => p.id === id);
+      if (!paper) return;
+
+      document.getElementById("modalYear").textContent = paper.year;
+      document.getElementById("modalTitle").textContent = paper.title;
+      document.getElementById("modalSubject").textContent = paper.subjectLabel;
+      document.getElementById("modalMeta").textContent = `PDF · ${paper.size} · ${paper.pages} pages`;
+      document.getElementById("modalDesc").textContent = paper.description;
+
+      const viewBtn = document.getElementById("modalView");
+      const dlBtn = document.getElementById("modalDownload");
+      viewBtn.href = paper.viewUrl;
+      dlBtn.href = paper.downloadUrl;
+
+      viewBtn.onclick = (e) => {
+        if (paper.viewUrl.startsWith("#")) {
+          e.preventDefault();
+          showToast(`Opening “${paper.title}” for review (placeholder)`);
+        }
+      };
+      dlBtn.onclick = (e) => {
+        if (paper.downloadUrl.startsWith("#")) {
+          e.preventDefault();
+          showToast(`Download started for “${paper.title}”`);
+        }
+      };
+
+      if (typeof addRecent === "function") {
+        addRecent({
+          id: paper.id,
+          type: "paper",
+          title: paper.title,
+          year: paper.year,
+          subjectLabel: paper.subjectLabel,
+          author: paper.subjectLabel
+        });
+      }
+      let modalFav = document.getElementById("modalPaperFav");
+      if (!modalFav) {
+        const actions = document.querySelector(".paper-modal-actions");
+        if (actions) {
+          modalFav = document.createElement("div");
+          modalFav.id = "modalPaperFav";
+          modalFav.className = "modal-fav-wrap";
+          actions.prepend(modalFav);
+        }
+      }
+      if (modalFav && typeof favoriteButtonHTML === "function") {
+        modalFav.innerHTML = favoriteButtonHTML("paper", paper.id);
+        if (typeof bindFavoriteButtons === "function") bindFavoriteButtons(modalFav);
+      }
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    window.__openPaperModal = openModal;
+
+    /* ===== Filters ===== */
+    document.getElementById("yearFilters").addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      document.querySelector("#yearFilters .selected")?.classList.remove("selected");
+      btn.classList.add("selected");
+      activeYear = btn.dataset.year;
+      renderPapers();
+      showToast(`Showing ${btn.textContent === "All" ? "all years" : btn.textContent} papers`);
+    });
+
+    document.getElementById("subjectFilters").addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      document.querySelector("#subjectFilters .selected")?.classList.remove("selected");
+      btn.classList.add("selected");
+      activeSubject = btn.dataset.subject;
+      renderPapers();
+      showToast(`Showing ${btn.textContent} papers`);
+    });
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderPapers();
+    });
+
+    document.getElementById("searchInput").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        showToast(`Searching for “${e.target.value || "papers"}”`);
+      }
+    });
+
+    /* ===== Modal close ===== */
+    modal.addEventListener("click", (e) => {
+      if (e.target.hasAttribute("data-close-modal") || e.target.closest("[data-close-modal]")) {
+        closeModal();
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
+
+    /* ===== Init ===== */
+    renderPapers();
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      if (papers.some(p => p.id === id)) openModal(id);
+    }
+  </script>
+</body>
+</html>

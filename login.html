@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in | Knowledge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-shell">
+    <!-- Left: brand panel -->
+    <aside class="auth-side">
+      <a href="index.html" class="auth-brand">
+        <span class="brand-mark"><i data-lucide="graduation-cap"></i></span>
+        <span>
+          <strong>Know<span>ledge</span></strong>
+          <small>Learn. Prepare. Succeed.</small>
+        </span>
+      </a>
+
+      <div class="auth-side-copy">
+        <h1>Your account opens every paper, book and tutorial.</h1>
+        <p>Browse freely. Sign in when you are ready to read, watch or download.</p>
+
+        <ul class="auth-perks">
+          <li><span><i data-lucide="file-text"></i></span>Review and download past question papers</li>
+          <li><span><i data-lucide="book-open"></i></span>Read textbooks and reference books</li>
+          <li><span><i data-lucide="play"></i></span>Watch recorded lectures and tutorials</li>
+        </ul>
+      </div>
+
+      <div class="auth-side-circle one"></div>
+      <div class="auth-side-circle two"></div>
+    </aside>
+
+    <!-- Right: form -->
+    <main class="auth-main">
+      <div class="auth-card">
+        <a href="index.html" class="auth-brand auth-brand-mobile">
+          <span class="brand-mark"><i data-lucide="graduation-cap"></i></span>
+          <strong>Know<span>ledge</span></strong>
+        </a>
+
+        <div class="auth-tabs" role="tablist" aria-label="Account">
+          <button type="button" role="tab" id="tabSignin" class="selected" aria-selected="true" aria-controls="signinForm">Sign in</button>
+          <button type="button" role="tab" id="tabSignup" aria-selected="false" aria-controls="signupForm">Create account</button>
+        </div>
+
+        <div class="auth-notice" id="authNotice" hidden>
+          <i data-lucide="lock"></i>
+          <p id="authNoticeText"></p>
+        </div>
+
+        <h2 id="authTitle">Welcome back</h2>
+        <p class="auth-sub" id="authSub">Sign in to continue to your resources.</p>
+
+        <!-- Sign in -->
+        <form id="signinForm" class="auth-form" novalidate>
+          <div class="field">
+            <label for="siEmail">Email</label>
+            <div class="input-wrap">
+              <i data-lucide="mail"></i>
+              <input id="siEmail" type="email" autocomplete="email" placeholder="you@example.com" />
+            </div>
+            <p class="field-error" id="siEmailError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="siPassword">Password</label>
+            <div class="input-wrap">
+              <i data-lucide="lock-keyhole"></i>
+              <input id="siPassword" type="password" autocomplete="current-password" placeholder="Enter your password" />
+              <button type="button" class="toggle-pass" data-target="siPassword" aria-label="Show password"><i data-lucide="eye"></i></button>
+            </div>
+            <p class="field-error" id="siPasswordError" role="alert"></p>
+          </div>
+
+          <div class="form-row">
+            <label class="check">
+              <input type="checkbox" id="siRemember" checked />
+              <span>Keep me signed in</span>
+            </label>
+            <a href="#" id="forgotLink">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="primary auth-submit" id="siSubmit">Sign in</button>
+        </form>
+
+        <!-- Sign up -->
+        <form id="signupForm" class="auth-form" novalidate hidden>
+          <div class="field">
+            <label for="suName">Full name</label>
+            <div class="input-wrap">
+              <i data-lucide="user-round"></i>
+              <input id="suName" type="text" autocomplete="name" placeholder="Your full name" />
+            </div>
+            <p class="field-error" id="suNameError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="suEmail">Email</label>
+            <div class="input-wrap">
+              <i data-lucide="mail"></i>
+              <input id="suEmail" type="email" autocomplete="email" placeholder="you@example.com" />
+            </div>
+            <p class="field-error" id="suEmailError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="suPassword">Password</label>
+            <div class="input-wrap">
+              <i data-lucide="lock-keyhole"></i>
+              <input id="suPassword" type="password" autocomplete="new-password" placeholder="Create a password" />
+              <button type="button" class="toggle-pass" data-target="suPassword" aria-label="Show password"><i data-lucide="eye"></i></button>
+            </div>
+            <p class="field-hint" id="suPasswordHint">Use at least 8 characters with a letter and a number.</p>
+            <p class="field-error" id="suPasswordError" role="alert"></p>
+          </div>
+
+          <button type="submit" class="primary auth-submit" id="suSubmit">Create account</button>
+        </form>
+
+        <p class="auth-switch" id="authSwitch">
+          New to Knowledge? <a href="#" id="switchLink">Create an account</a>
+        </p>
+
+        <a class="auth-guest" href="index.html"><i data-lucide="arrow-left"></i> Continue browsing without an account</a>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" role="status"></div>
+  <script>lucide.createIcons();</script>
+  <script src="auth.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
