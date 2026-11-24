@@ -3,6 +3,7 @@
   const INDEX_KEY = "knowledge_admin_resource_index";
   const DB_NAME = "knowledge_admin_resources";
   const STORE = "files";
+  const PROGRESS_KEY = "knowledge_resource_progress";
   const $ = (id) => document.getElementById(id);
 
   function escapeHtml(value) {
@@ -13,6 +14,13 @@
       const items = JSON.parse(localStorage.getItem(INDEX_KEY) || "[]");
       return Array.isArray(items) ? items : [];
     } catch (_) { return []; }
+  }
+  function getProgress() {
+    try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); }
+    catch (_) { return {}; }
+  }
+  function currentUser() {
+    return window.Auth ? Auth.getUser() : null;
   }
   function openDB() {
     return new Promise((resolve, reject) => {
@@ -55,7 +63,10 @@
   }
   function resourceRow(item) {
     const typeIcon = item.type === "Book" ? "book-open" : item.type === "Question paper" ? "file-text" : "folder-open";
-    return '<article class="uploaded-resource"><div class="uploaded-resource-icon"><i data-lucide="' + typeIcon + '"></i></div><div class="uploaded-resource-copy"><h3>' + escapeHtml(item.title) + '</h3><p>Grade ' + escapeHtml(item.grade) + ' · ' + escapeHtml(item.type) + ' · ' + escapeHtml(item.fileName) + ' · ' + escapeHtml(item.sizeLabel || "") + '</p></div><button class="uploaded-download btn-download" type="button" data-download-resource="' + escapeHtml(item.id) + '"><i data-lucide="download"></i><span>Download</span></button></article>';
+    const user = currentUser();
+    const progress = getProgress();
+    const completed = !!(user && Array.isArray(progress[user.email]) && progress[user.email].includes(item.id));
+    return '<article class="uploaded-resource"><div class="uploaded-resource-icon"><i data-lucide="' + typeIcon + '"></i></div><div class="uploaded-resource-copy"><h3>' + escapeHtml(item.title) + '</h3><p>Grade ' + escapeHtml(item.grade) + ' · ' + escapeHtml(item.type) + ' · ' + escapeHtml(item.fileName) + ' · ' + escapeHtml(item.sizeLabel || "") + '</p></div><div class="uploaded-resource-actions"><button class="uploaded-complete' + (completed ? ' is-complete' : '') + '" type="button" data-complete-resource="' + escapeHtml(item.id) + '" aria-pressed="' + String(completed) + '"><i data-lucide="' + (completed ? 'circle-check' : 'circle') + '"></i><span>' + (completed ? 'Completed' : 'Mark complete') + '</span></button><button class="uploaded-download btn-download" type="button" data-download-resource="' + escapeHtml(item.id) + '"><i data-lucide="download"></i><span>Download</span></button></div></article>';
   }
   function emptyState(type, hasAny, host) {
     const text = hasAny ? "No resources match your search or grade filter." : "No " + (type === "books" ? "books" : type === "papers" ? "question papers" : "resources") + " have been uploaded yet.";
@@ -101,6 +112,30 @@
   $("paperGradeFilter")?.addEventListener("change", render);
   $("searchInput")?.addEventListener("input", render);
   document.addEventListener("click", (event) => {
+    const completeButton = event.target.closest("[data-complete-resource]");
+    if (completeButton) {
+      const user = currentUser();
+      if (!user) {
+        window.notify ? window.notify("Sign in to save your learning progress.") : window.alert("Sign in to save your learning progress.");
+        return;
+      }
+      const item = getResourceIndex().find((resource) => resource.id === completeButton.dataset.completeResource);
+      if (!item) return;
+      const progress = getProgress();
+      const ids = Array.isArray(progress[user.email]) ? progress[user.email] : [];
+      if (ids.includes(item.id)) {
+        progress[user.email] = ids.filter((id) => id !== item.id);
+        try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch (_) {}
+        window.notify?.("Progress updated.");
+      } else {
+        progress[user.email] = ids.concat(item.id);
+        try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch (_) {}
+        window.KnowledgeNotifications?.publishCompletion(item, user.email);
+        window.notify?.("Marked as complete.");
+      }
+      render();
+      return;
+    }
     const button = event.target.closest("[data-download-resource]");
     if (!button) return;
     event.preventDefault();

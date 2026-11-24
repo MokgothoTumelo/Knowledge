@@ -3,125 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Books | Knowledge</title>
+  <title>Admin workspace | Knowledge</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admin.css" />
 </head>
 <body>
-  <aside class="sidebar">
-    <a href="index.html" class="brand">
-      <span class="brand-mark"><i data-lucide="graduation-cap"></i></span>
-      <span>
-        <strong>Know<span>ledge</span></strong>
-        <small>Learn. Prepare. Succeed.</small>
-      </span>
-    </a>
+  <header class="admin-topbar">
+    <a class="brand" href="index.html"><span class="brand-mark"><i data-lucide="graduation-cap"></i></span><span><strong>Know<span>ledge</span></strong><small>Admin workspace</small></span></a>
+    <a class="back-link" href="index.html"><i data-lucide="arrow-left"></i> Back to website</a>
+  </header>
+  <main class="admin-main">
+    <div class="demo-notice"><i data-lucide="info"></i><span><strong>Browser demo</strong> Student accounts and uploaded files are saved only in this browser. Connect a shared database before using this for the hosted site.</span></div>
+    <section class="admin-heading"><div><p class="eyebrow">KNOWLEDGE ADMIN</p><h1>Admin workspace</h1><p>View registered accounts and organize learning resources by grade.</p></div></section>
 
-    <nav class="nav">
-      <a href="index.html"><i data-lucide="house"></i>Home</a>
-      <a href="papers.html"><i data-lucide="file-text"></i>Question Papers</a>
-      <a class="active" href="books.html"><i data-lucide="book-open"></i>Books</a>
-      <a href="index.html#tutorials"><i data-lucide="play-square"></i>Tutorials</a>
-      <a href="#"><i data-lucide="bookmark"></i>My Library</a>
-      <a href="#"><i data-lucide="download"></i>Downloads</a>
-      <a href="favorites.html"><i data-lucide="heart"></i>Favorites</a>
-      <a href="#"><i data-lucide="blocks"></i>Subjects</a>
-      <a href="#"><i data-lucide="megaphone"></i>Announcements</a>
-      <a href="#"><i data-lucide="user-round"></i>Profile</a>
-      <a href="#"><i data-lucide="settings"></i>Settings</a>
+    <section class="summary-grid" aria-label="Overview">
+      <article class="summary-card"><span class="summary-icon students"><i data-lucide="users"></i></span><div><p>Registered students</p><strong id="studentTotal">0</strong></div></article>
+      <article class="summary-card"><span class="summary-icon resources"><i data-lucide="library-big"></i></span><div><p>Uploaded resources</p><strong id="resourceTotal">0</strong></div></article>
+      <article class="summary-card"><span class="summary-icon grades"><i data-lucide="layers-3"></i></span><div><p>Grades in workspace</p><strong>10–12</strong></div></article>
+    </section>
+
+    <nav class="admin-tabs" aria-label="Admin sections">
+      <button class="tab-button active" type="button" data-panel="studentsPanel" aria-selected="true"><i data-lucide="users"></i> Student accounts</button>
+      <button class="tab-button" type="button" data-panel="resourcesPanel" aria-selected="false"><i data-lucide="cloud-upload"></i> Resource uploads</button>
     </nav>
 
-    <div class="organize-card">
-      <h4>Stay Organized</h4>
-      <p>Save your favorite resources and access them anytime.</p>
-      <button>Explore My Library</button>
-      <div class="folders">
-        <i data-lucide="folder"></i>
-        <i data-lucide="folder-open"></i>
-      </div>
-    </div>
-  </aside>
+    <section class="admin-panel" id="studentsPanel">
+      <div class="panel-heading"><div><h2>Registered students</h2><p>Accounts created through the website on this browser.</p></div><label class="table-search"><i data-lucide="search"></i><input id="studentSearch" type="search" placeholder="Search name or email" /></label></div>
+      <div class="table-wrap"><table><thead><tr><th>Student</th><th>Email</th><th>Registered</th><th>Account</th></tr></thead><tbody id="studentsTable"></tbody></table><div class="empty-state" id="studentsEmpty" hidden><i data-lucide="user-round-search"></i><h3>No student accounts yet</h3><p>Accounts created using Sign up will appear here.</p></div><div class="empty-state" id="studentsNoMatch" hidden><h3>No matching accounts</h3><p>Try another name or email.</p></div></div>
+    </section>
 
-  <main>
-    <header class="topbar">
-      <button class="mobile-menu"><i data-lucide="menu"></i></button>
-
-      <label class="search">
-        <i data-lucide="search"></i>
-        <input id="searchInput" placeholder="Search for books..." />
-      </label>
-
-      <div class="top-actions">
-        <button class="notification">
-          <i data-lucide="bell"></i>
-          <b>3</b>
-        </button>
-        <div class="auth-area" id="authArea"></div>
-      </div>
-    </header>
-
-    <section class="page-content">
-      <!-- Page Header -->
-      <section class="page-header">
-        <div class="page-header-copy">
-          <p class="eyebrow">DIGITAL LIBRARY</p>
-          <h1>Books</h1>
-          <p>Browse textbooks, reference materials, and academic books. Read online or download to study offline anytime.</p>
-        </div>
-      </section>
-
-      <!-- Filters & Controls -->
-      <section class="books-controls">
-        <div class="section-heading">
-          <div>
-            <h2>All Books</h2>
-            <label class="resource-grade-filter">Grade <select id="bookGradeFilter"><option value="all">All grades</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></label>
-          </div>
-          <span class="book-count" id="bookCount">0 books</span>
-        </div>
-      </section>
-
-      <!-- Books Grid -->
-      <section class="books-grid" id="booksGrid">
-        <!-- Cards rendered by JS -->
-      </section>
+    <section class="admin-panel" id="resourcesPanel" hidden>
+      <div class="panel-heading"><div><h2>Upload learning resources</h2><p>Choose a grade, then add a question paper, book, notes, or other file.</p></div></div>
+      <form id="resourceForm" class="upload-form">
+        <label>Grade<select id="resourceGrade" required><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></label>
+        <label>Resource type<select id="resourceType" required><option value="Question paper">Question paper</option><option value="Book">Book</option><option value="Study notes">Study notes</option><option value="Other">Other</option></select></label>
+        <label class="wide-field">Resource title<input id="resourceTitle" type="text" maxlength="120" placeholder="e.g. Mathematics Term 1 Revision" required /></label>
+        <label class="wide-field">Choose a file<input id="resourceFile" type="file" required /><small>PDF, document, or image. The browser may limit how much can be stored.</small></label>
+        <div class="wide-field form-actions"><button class="upload-button" type="submit"><i data-lucide="upload"></i> Upload resource</button><span id="uploadMessage" role="status"></span></div>
+      </form>
+      <div class="panel-heading resource-list-heading"><div><h2>Uploaded resources</h2><p>Saved in this browser, grouped by grade.</p></div><label class="grade-filter">Show grade<select id="gradeFilter"><option value="all">All grades</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></label></div>
+      <div id="resourceList" class="resource-list"></div>
+      <div class="empty-state resource-empty" id="resourcesEmpty"><i data-lucide="folder-open"></i><h3>No resources uploaded yet</h3><p>Upload your first file using the form above.</p></div>
     </section>
   </main>
-
-  <!-- Book Detail Modal -->
-  <div class="book-modal" id="bookModal" hidden>
-    <div class="book-modal-backdrop" data-close-modal></div>
-    <div class="book-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" data-close-modal aria-label="Close">
-        <i data-lucide="x"></i>
-      </button>
-      <div class="modal-body">
-        <div class="modal-cover" id="modalCover"></div>
-        <div class="modal-info">
-          <p class="modal-category" id="modalCategory"></p>
-          <h2 id="modalTitle"></h2>
-          <p class="modal-author" id="modalAuthor"></p>
-          <p class="modal-meta" id="modalMeta"></p>
-          <p class="modal-desc" id="modalDesc"></p>
-          <div class="modal-actions">
-            <a class="primary" id="modalRead" href="#" target="_blank" rel="noopener">
-              <i data-lucide="book-open"></i> Read Book
-            </a>
-            <a class="secondary-btn" id="modalDownload" href="#" download>
-              <i data-lucide="download"></i> Download
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="toast" role="status"></div>
-  <script src="js/script.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/resources.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/admin.js"></script>
 </body>
 </html>

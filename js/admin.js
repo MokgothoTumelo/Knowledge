@@ -107,6 +107,7 @@
       const resources = readResources();
       resources.push(resource);
       if (!writeResources(resources)) throw new Error("The browser could not save the resource details.");
+      window.KnowledgeNotifications?.publishUpload(resource);
       form.reset();
       message.textContent = "Resource uploaded to this browser.";
       renderResources();

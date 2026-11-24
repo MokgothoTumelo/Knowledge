@@ -799,6 +799,3 @@ if (document.getElementById("favoritesGrid")) {
 
 /* Search is handled against uploaded resources by resources.js. */
 
-document.querySelector(".notification")?.addEventListener("click", function () {
-  showToast("You have 3 new notifications");
-});
