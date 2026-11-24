@@ -228,9 +228,27 @@ body.sidebar-open {
     font-size: 15px;
 }
 
+.nav .nav-disabled {
+    min-height: 49px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    border-radius: 8px;
+    padding: 0 23px;
+    color: #8390a3;
+    font-size: 15px;
+    opacity: 0.68;
+    cursor: default;
+}
+
 .nav a i {
     width: 21px;
     color: #536075;
+}
+
+.nav .nav-disabled i {
+    width: 21px;
+    color: #8390a3;
 }
 
 .nav a.active {
