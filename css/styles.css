@@ -80,6 +80,17 @@ html {
 .uploaded-complete:hover { border-color: #b7d9c4; color: #287a4c; }
 .uploaded-complete.is-complete { border-color: #c4e7d0; background: #eef9f1; color: #287a4c; }
 .uploaded-complete i { width: 15px; height: 15px; }
+.uploaded-offline-link { display: inline-flex; align-items: center; gap: 6px; padding: 9px 10px; border: 1px solid #c4e7d0; border-radius: 7px; background: #eef9f1; color: #287a4c; font: 600 11px "DM Sans", sans-serif; text-decoration: none; }
+.uploaded-offline-link:hover { border-color: #86c99d; background: #e4f5e9; }
+.uploaded-offline-link i { width: 15px; height: 15px; }
+.subject-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin: 0 0 20px; }
+.subject-summary strong { margin-right: 4px; color: #41516a; font-size: 13px; }
+.subject-chip { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid #d8e4f8; border-radius: 999px; background: #f2f6ff; color: #315b99; font-size: 11px; font-weight: 600; }
+.subject-chip.empty { border-color: #e1e6ee; background: #f8f9fb; color: #758197; }
+.page-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 18px; }
+.page-controls label { display: inline-flex; align-items: center; gap: 8px; color: #5e6c83; font-size: 13px; }
+.page-controls select { min-height: 38px; padding: 0 10px; border: 1px solid #dfe5ee; border-radius: 8px; background: #fff; color: #253650; font: 14px "DM Sans", sans-serif; }
+.offline-note { margin: 0 0 18px; padding: 12px 15px; border: 1px solid #d8e9dd; border-radius: 9px; background: #f3faf5; color: #446a50; font-size: 12px; line-height: 1.5; }
 
 .uploaded-empty {
     justify-items: center;
@@ -228,6 +239,11 @@ body.sidebar-open {
     font-size: 15px;
 }
 
+.nav a i {
+    width: 21px;
+    color: #536075;
+}
+
 .nav .nav-disabled {
     min-height: 49px;
     display: flex;
@@ -241,15 +257,7 @@ body.sidebar-open {
     cursor: default;
 }
 
-.nav a i {
-    width: 21px;
-    color: #536075;
-}
-
-.nav .nav-disabled i {
-    width: 21px;
-    color: #8390a3;
-}
+.nav .nav-disabled i { width: 21px; color: #8390a3; }
 
 .nav a.active {
     color: #1264de;

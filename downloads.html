@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Downloads | Knowledge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script><link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="index.html" class="brand"><span class="brand-mark"><i data-lucide="graduation-cap"></i></span><span><strong>Know<span>ledge</span></strong><small>Learn. Prepare. Succeed.</small></span></a>
+    <nav class="nav"><a href="index.html"><i data-lucide="house"></i>Home</a><a href="papers.html"><i data-lucide="file-text"></i>Question Papers</a><a href="books.html"><i data-lucide="book-open"></i>Books</a><a href="index.html#uploadedResources"><i data-lucide="folder-open"></i>Resources</a><a href="favorites.html"><i data-lucide="bookmark"></i>My Library</a><a class="active" href="downloads.html"><i data-lucide="download"></i>Downloads</a><a href="favorites.html"><i data-lucide="heart"></i>Favorites</a><a href="subjects.html"><i data-lucide="blocks"></i>My Subjects</a><a href="admin.html"><i data-lucide="layout-dashboard"></i>Admin workspace</a></nav>
+    <div class="organize-card"><h4>Study anywhere</h4><p>Downloaded files can be reopened from this browser, even offline.</p><button onclick="location.href='subjects.html'">Browse My Subjects</button><div class="folders"><i data-lucide="download"></i><i data-lucide="wifi-off"></i></div></div>
+  </aside>
+  <main>
+    <header class="topbar"><button class="mobile-menu"><i data-lucide="menu"></i></button><label class="search"><i data-lucide="search"></i><input id="searchInput" placeholder="Search your downloads..." /></label><div class="top-actions"><button class="notification" type="button" aria-label="Notifications" aria-expanded="false"><i data-lucide="bell"></i><b hidden></b></button><div class="auth-area" id="authArea"></div></div></header>
+    <section class="page-content">
+      <section class="page-header"><div class="page-header-copy"><p class="eyebrow">YOUR OFFLINE LIBRARY</p><h1>Downloads</h1><p>Files you download are listed here. Open a saved file from this page when you are offline.</p></div></section>
+      <p class="offline-note"><strong>Offline access:</strong> Your files stay in this browser. Visit this page once while online so the page itself is saved for offline use. Offline access is limited to this device and browser.</p>
+      <section class="books-controls"><div class="section-heading"><div><h2>Downloaded resources</h2><label class="resource-grade-filter">Grade<select id="resourceGradeFilter"><option value="all">All grades</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></label></div><span class="book-count" id="downloadCount">0 saved files</span></div></section>
+      <section class="home-resource-list" id="downloadsGrid"><div class="uploaded-empty"><p>Loading downloads…</p></div></section>
+    </section>
+  </main>
+  <div id="toast" role="status"></div>
+  <script src="js/script.js"></script><script src="js/auth.js"></script><script src="js/notifications.js"></script><script src="js/resources.js"></script><script src="js/offline.js"></script>
+</body>
+</html>
