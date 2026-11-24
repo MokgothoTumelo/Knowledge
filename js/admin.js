@@ -67,7 +67,7 @@
     const query = $("studentSearch").value.trim().toLowerCase();
     const filtered = users.filter((user) => (String(user.name || "") + " " + String(user.email || "")).toLowerCase().includes(query));
     $("studentTotal").textContent = String(users.length);
-    $("studentsTable").innerHTML = filtered.map((user) => "<tr><td>" + escapeHtml(user.name || "Student") + "</td><td>" + escapeHtml(user.email) + "</td><td>" + formatDate(user.createdAt) + '</td><td><span class="account-badge">Registered</span></td></tr>').join("");
+    $("studentsTable").innerHTML = filtered.map((user) => "<tr><td>" + escapeHtml(user.name || "Student") + "</td><td>" + escapeHtml(user.email) + "</td><td>" + (user.grade ? "Grade " + escapeHtml(user.grade) : "Not provided") + "</td><td>" + escapeHtml(Array.isArray(user.subjects) && user.subjects.length ? user.subjects.join(", ") : "Not provided") + "</td><td>" + formatDate(user.createdAt) + '</td><td><span class="account-badge">Registered</span></td></tr>').join("");
     $("studentsEmpty").hidden = users.length > 0;
     $("studentsNoMatch").hidden = users.length === 0 || filtered.length > 0;
   }
@@ -76,7 +76,7 @@
     const grade = $("gradeFilter").value;
     const resources = grade === "all" ? all : all.filter((item) => item.grade === grade);
     $("resourceTotal").textContent = String(all.length);
-    $("resourceList").innerHTML = resources.map((item) => '<article class="resource-card"><div class="resource-info"><span class="resource-file-icon"><i data-lucide="file-text"></i></span><div><h3>' + escapeHtml(item.title) + '</h3><p>Grade ' + escapeHtml(item.grade) + " · " + escapeHtml(item.type) + " · " + escapeHtml(item.fileName) + " · " + escapeHtml(item.sizeLabel) + '</p></div></div><div class="resource-actions"><a href="#" data-download="' + escapeHtml(item.id) + '"><i data-lucide="download"></i> Download</a></div></article>').join("");
+    $("resourceList").innerHTML = resources.map((item) => '<article class="resource-card"><div class="resource-info"><span class="resource-file-icon"><i data-lucide="file-text"></i></span><div><h3>' + escapeHtml(item.title) + '</h3><p>Grade ' + escapeHtml(item.grade) + " · " + escapeHtml(item.subject || "All subjects") + " · " + escapeHtml(item.type) + " · " + escapeHtml(item.fileName) + " · " + escapeHtml(item.sizeLabel) + '</p></div></div><div class="resource-actions"><a href="#" data-download="' + escapeHtml(item.id) + '"><i data-lucide="download"></i> Download</a></div></article>').join("");
     $("resourcesEmpty").hidden = resources.length > 0;
     if (window.lucide) lucide.createIcons();
   }
@@ -101,7 +101,7 @@
     button.disabled = true;
     message.textContent = "Saving file…";
     const id = window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
-    const resource = { id, title: $("resourceTitle").value.trim(), grade: $("resourceGrade").value, type: $("resourceType").value, fileName: file.name, sizeLabel: file.size < 1048576 ? Math.max(1, Math.round(file.size / 1024)) + " KB" : (file.size / 1048576).toFixed(1) + " MB", createdAt: Date.now() };
+    const resource = { id, title: $("resourceTitle").value.trim(), grade: $("resourceGrade").value, subject: $("resourceSubject").value, type: $("resourceType").value, fileName: file.name, sizeLabel: file.size < 1048576 ? Math.max(1, Math.round(file.size / 1024)) + " KB" : (file.size / 1048576).toFixed(1) + " MB", createdAt: Date.now() };
     try {
       await storeFile(resource, file);
       const resources = readResources();

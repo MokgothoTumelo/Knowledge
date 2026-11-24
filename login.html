@@ -112,6 +112,47 @@
           </div>
 
           <div class="field">
+            <label for="suGrade">Grade</label>
+            <select class="auth-select" id="suGrade" required>
+              <option value="">Choose your grade</option>
+              <option value="10">Grade 10</option>
+              <option value="11">Grade 11</option>
+              <option value="12">Grade 12</option>
+            </select>
+            <p class="field-error" id="suGradeError" role="alert"></p>
+          </div>
+
+          <fieldset class="field subject-choice-group" id="subjectChoiceGroup" aria-describedby="suSubjectsHint suSubjectsError">
+            <legend>Subjects</legend>
+            <p class="field-hint" id="suSubjectsHint">Choose all the subjects you are taking.</p>
+            <div class="subject-options">
+              <label><input type="checkbox" name="suSubjects" value="English Home Language"> English Home Language</label>
+              <label><input type="checkbox" name="suSubjects" value="English First Additional Language"> English First Additional Language</label>
+              <label><input type="checkbox" name="suSubjects" value="Afrikaans Home Language"> Afrikaans Home Language</label>
+              <label><input type="checkbox" name="suSubjects" value="Afrikaans First Additional Language"> Afrikaans First Additional Language</label>
+              <label><input type="checkbox" name="suSubjects" value="Mathematics"> Mathematics</label>
+              <label><input type="checkbox" name="suSubjects" value="Mathematical Literacy"> Mathematical Literacy</label>
+              <label><input type="checkbox" name="suSubjects" value="Life Sciences"> Life Sciences</label>
+              <label><input type="checkbox" name="suSubjects" value="Physical Sciences"> Physical Sciences</label>
+              <label><input type="checkbox" name="suSubjects" value="Accounting"> Accounting</label>
+              <label><input type="checkbox" name="suSubjects" value="Business Studies"> Business Studies</label>
+              <label><input type="checkbox" name="suSubjects" value="Economics"> Economics</label>
+              <label><input type="checkbox" name="suSubjects" value="Geography"> Geography</label>
+              <label><input type="checkbox" name="suSubjects" value="History"> History</label>
+              <label><input type="checkbox" name="suSubjects" value="Life Orientation"> Life Orientation</label>
+              <label><input type="checkbox" name="suSubjects" value="Computer Applications Technology"> Computer Applications Technology</label>
+              <label><input type="checkbox" name="suSubjects" value="Information Technology"> Information Technology</label>
+              <label><input type="checkbox" name="suSubjects" value="Tourism"> Tourism</label>
+              <label><input type="checkbox" name="suSubjects" value="Consumer Studies"> Consumer Studies</label>
+              <label><input type="checkbox" name="suSubjects" value="Agricultural Sciences"> Agricultural Sciences</label>
+              <label><input type="checkbox" name="suSubjects" value="Engineering Graphics and Design"> Engineering Graphics and Design</label>
+              <label><input type="checkbox" name="suSubjects" value="Visual Arts"> Visual Arts</label>
+              <label><input type="checkbox" name="suSubjects" value="Dramatic Arts"> Dramatic Arts</label>
+            </div>
+            <p class="field-error" id="suSubjectsError" role="alert"></p>
+          </fieldset>
+
+          <div class="field">
             <label for="suPassword">Password</label>
             <div class="input-wrap">
               <i data-lucide="lock-keyhole"></i>

@@ -57,7 +57,7 @@
     const grade = gradeSelect ? gradeSelect.value : "all";
     return items.filter((item) => {
       const matchesGrade = grade === "all" || item.grade === grade;
-      const matchesSearch = !search || [item.title, item.fileName, item.type, "grade " + item.grade].join(" ").toLowerCase().includes(search);
+      const matchesSearch = !search || [item.title, item.fileName, item.type, item.subject, "grade " + item.grade].join(" ").toLowerCase().includes(search);
       return matchesGrade && matchesSearch;
     });
   }
@@ -66,7 +66,7 @@
     const user = currentUser();
     const progress = getProgress();
     const completed = !!(user && Array.isArray(progress[user.email]) && progress[user.email].includes(item.id));
-    return '<article class="uploaded-resource"><div class="uploaded-resource-icon"><i data-lucide="' + typeIcon + '"></i></div><div class="uploaded-resource-copy"><h3>' + escapeHtml(item.title) + '</h3><p>Grade ' + escapeHtml(item.grade) + ' · ' + escapeHtml(item.type) + ' · ' + escapeHtml(item.fileName) + ' · ' + escapeHtml(item.sizeLabel || "") + '</p></div><div class="uploaded-resource-actions"><button class="uploaded-complete' + (completed ? ' is-complete' : '') + '" type="button" data-complete-resource="' + escapeHtml(item.id) + '" aria-pressed="' + String(completed) + '"><i data-lucide="' + (completed ? 'circle-check' : 'circle') + '"></i><span>' + (completed ? 'Completed' : 'Mark complete') + '</span></button><button class="uploaded-download btn-download" type="button" data-download-resource="' + escapeHtml(item.id) + '"><i data-lucide="download"></i><span>Download</span></button></div></article>';
+    return '<article class="uploaded-resource"><div class="uploaded-resource-icon"><i data-lucide="' + typeIcon + '"></i></div><div class="uploaded-resource-copy"><h3>' + escapeHtml(item.title) + '</h3><p>Grade ' + escapeHtml(item.grade) + ' · ' + escapeHtml(item.subject || "All subjects") + ' · ' + escapeHtml(item.type) + ' · ' + escapeHtml(item.fileName) + ' · ' + escapeHtml(item.sizeLabel || "") + '</p></div><div class="uploaded-resource-actions"><button class="uploaded-complete' + (completed ? ' is-complete' : '') + '" type="button" data-complete-resource="' + escapeHtml(item.id) + '" aria-pressed="' + String(completed) + '"><i data-lucide="' + (completed ? 'circle-check' : 'circle') + '"></i><span>' + (completed ? 'Completed' : 'Mark complete') + '</span></button><button class="uploaded-download btn-download" type="button" data-download-resource="' + escapeHtml(item.id) + '"><i data-lucide="download"></i><span>Download</span></button></div></article>';
   }
   function emptyState(type, hasAny, host) {
     const text = hasAny ? "No resources match your search or grade filter." : "No " + (type === "books" ? "books" : type === "papers" ? "question papers" : "resources") + " have been uploaded yet.";

@@ -25,7 +25,7 @@
     },
     signup: {
       title: "Create your account",
-      sub: "It takes a minute. No payment needed.",
+      sub: "Create your account and choose your grade and subjects.",
       switchHtml: 'Already have an account? <a href="#" id="switchLink">Sign in</a>',
       pageTitle: "Create account | Knowledge",
     },
@@ -86,11 +86,14 @@
   function clearErrors() {
     document.querySelectorAll(".field-error").forEach((el) => (el.textContent = ""));
     document.querySelectorAll(".input-wrap.invalid").forEach((el) => el.classList.remove("invalid"));
+    document.querySelectorAll(".subject-choice-group.invalid").forEach((el) => el.classList.remove("invalid"));
+    document.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.setAttribute("aria-invalid", "false"));
   }
 
   const validators = {
     email: (v) => (!v.trim() ? "Enter your email address." : !EMAIL_RE.test(v.trim()) ? "Enter a valid email, like name@example.com." : ""),
     name: (v) => (v.trim().length < 2 ? "Enter your full name." : ""),
+    grade: (v) => (!v ? "Choose your grade." : ""),
     newPassword: (v) =>
       v.length < 8 ? "Use at least 8 characters." : !/[A-Za-z]/.test(v) || !/\d/.test(v) ? "Include at least one letter and one number." : "",
     password: (v) => (!v ? "Enter your password." : ""),
@@ -99,13 +102,21 @@
   // Validate a field when the user leaves it, and clear its error as they fix it
   [
     ["siEmail", "email"], ["siPassword", "password"],
-    ["suName", "name"], ["suEmail", "email"], ["suPassword", "newPassword"],
+    ["suName", "name"], ["suEmail", "email"], ["suGrade", "grade"], ["suPassword", "newPassword"],
   ].forEach(function (pair) {
     const input = $(pair[0]);
     input.addEventListener("blur", () => input.value && setError(pair[0], validators[pair[1]](input.value)));
     input.addEventListener("input", function () {
       if ($(pair[0] + "Error").textContent) setError(pair[0], validators[pair[1]](input.value));
     });
+  });
+
+  $("subjectChoiceGroup").addEventListener("change", function () {
+    if (document.querySelector('#subjectChoiceGroup input:checked')) {
+      $("suSubjectsError").textContent = "";
+      $("subjectChoiceGroup").classList.remove("invalid");
+      $("subjectChoiceGroup").setAttribute("aria-invalid", "false");
+    }
   });
 
   /* ---------- show / hide password ---------- */
@@ -163,20 +174,27 @@
     const name = $("suName").value;
     const email = $("suEmail").value;
     const password = $("suPassword").value;
+    const grade = $("suGrade").value;
+    const subjects = Array.from(document.querySelectorAll('#subjectChoiceGroup input[name="suSubjects"]:checked')).map((input) => input.value);
     const results = [
       setError("suName", validators.name(name)),
       setError("suEmail", validators.email(email)),
+      setError("suGrade", validators.grade(grade)),
       setError("suPassword", validators.newPassword(password)),
     ];
-    if (results.includes(false)) {
-      const firstBad = document.querySelector("#signupForm .invalid input");
+    const subjectsValid = subjects.length > 0;
+    $("suSubjectsError").textContent = subjectsValid ? "" : "Choose at least one subject.";
+    $("subjectChoiceGroup").classList.toggle("invalid", !subjectsValid);
+    $("subjectChoiceGroup").setAttribute("aria-invalid", String(!subjectsValid));
+    if (results.includes(false) || !subjectsValid) {
+      const firstBad = document.querySelector('#signupForm .input-wrap.invalid input, #signupForm [aria-invalid="true"]:not(fieldset), #signupForm .subject-choice-group.invalid input');
       if (firstBad) firstBad.focus();
       return;
     }
 
     const btn = $("suSubmit");
     busy(btn, true, "Create account");
-    const result = await Auth.signUp(name, email, password);
+    const result = await Auth.signUp(name, email, password, grade, subjects);
     busy(btn, false, "Create account");
 
     if (!result.ok) {

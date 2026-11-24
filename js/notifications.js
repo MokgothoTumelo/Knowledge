@@ -113,9 +113,14 @@
   window.KnowledgeNotifications = {
     publishUpload(resource) {
       const users = readJSON(USERS_KEY, []);
-      const recipients = Array.isArray(users) ? users.map((user) => user.email) : [];
+      const recipients = Array.isArray(users) ? users.filter((user) => {
+        const gradeMatches = String(user.grade || "") === String(resource.grade || "");
+        const subjects = Array.isArray(user.subjects) ? user.subjects : [];
+        const subjectMatches = resource.subject === "All subjects" || subjects.includes(resource.subject);
+        return gradeMatches && subjectMatches;
+      }).map((user) => user.email) : [];
       const route = resource.type === "Book" ? "books.html" : resource.type === "Question paper" ? "papers.html" : "index.html#uploadedResources";
-      createNotification("upload", "New resource uploaded", "Grade " + resource.grade + " · " + resource.title + " (" + resource.type + ")", recipients, route);
+      createNotification("upload", "New resource for Grade " + resource.grade, resource.title + " · " + (resource.subject || "All subjects") + " (" + resource.type + ")", recipients, route);
     },
     publishCompletion(resource, email) {
       createNotification("completion", "Resource completed", "You marked “" + resource.title + "” for Grade " + resource.grade + " as complete.", [email], resource.type === "Book" ? "books.html" : resource.type === "Question paper" ? "papers.html" : "index.html#uploadedResources");

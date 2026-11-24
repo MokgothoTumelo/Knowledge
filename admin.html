@@ -32,7 +32,7 @@
 
     <section class="admin-panel" id="studentsPanel">
       <div class="panel-heading"><div><h2>Registered students</h2><p>Accounts created through the website on this browser.</p></div><label class="table-search"><i data-lucide="search"></i><input id="studentSearch" type="search" placeholder="Search name or email" /></label></div>
-      <div class="table-wrap"><table><thead><tr><th>Student</th><th>Email</th><th>Registered</th><th>Account</th></tr></thead><tbody id="studentsTable"></tbody></table><div class="empty-state" id="studentsEmpty" hidden><i data-lucide="user-round-search"></i><h3>No student accounts yet</h3><p>Accounts created using Sign up will appear here.</p></div><div class="empty-state" id="studentsNoMatch" hidden><h3>No matching accounts</h3><p>Try another name or email.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Student</th><th>Email</th><th>Grade</th><th>Subjects</th><th>Registered</th><th>Account</th></tr></thead><tbody id="studentsTable"></tbody></table><div class="empty-state" id="studentsEmpty" hidden><i data-lucide="user-round-search"></i><h3>No student accounts yet</h3><p>Accounts created using Sign up will appear here.</p></div><div class="empty-state" id="studentsNoMatch" hidden><h3>No matching accounts</h3><p>Try another name or email.</p></div></div>
     </section>
 
     <section class="admin-panel" id="resourcesPanel" hidden>
@@ -40,6 +40,9 @@
       <form id="resourceForm" class="upload-form">
         <label>Grade<select id="resourceGrade" required><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></label>
         <label>Resource type<select id="resourceType" required><option value="Question paper">Question paper</option><option value="Book">Book</option><option value="Study notes">Study notes</option><option value="Other">Other</option></select></label>
+        <label>Subject<select id="resourceSubject" required>
+          <option value="All subjects">All subjects</option><option>English Home Language</option><option>English First Additional Language</option><option>Afrikaans Home Language</option><option>Afrikaans First Additional Language</option><option>Mathematics</option><option>Mathematical Literacy</option><option>Life Sciences</option><option>Physical Sciences</option><option>Accounting</option><option>Business Studies</option><option>Economics</option><option>Geography</option><option>History</option><option>Life Orientation</option><option>Computer Applications Technology</option><option>Information Technology</option><option>Tourism</option><option>Consumer Studies</option><option>Agricultural Sciences</option><option>Engineering Graphics and Design</option><option>Visual Arts</option><option>Dramatic Arts</option>
+        </select></label>
         <label class="wide-field">Resource title<input id="resourceTitle" type="text" maxlength="120" placeholder="e.g. Mathematics Term 1 Revision" required /></label>
         <label class="wide-field">Choose a file<input id="resourceFile" type="file" required /><small>PDF, document, or image. The browser may limit how much can be stored.</small></label>
         <div class="wide-field form-actions"><button class="upload-button" type="submit"><i data-lucide="upload"></i> Upload resource</button><span id="uploadMessage" role="status"></span></div>
