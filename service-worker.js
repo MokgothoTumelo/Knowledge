@@ -1,5 +1,5 @@
 "use strict";
-const CACHE_NAME = "knowledge-shell-v1";
+const CACHE_NAME = "knowledge-shell-v2";
 const SHELL_FILES = [
   "./", "./index.html", "./books.html", "./papers.html", "./favorites.html",
   "./login.html", "./admin.html", "./subjects.html", "./downloads.html",
