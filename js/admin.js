@@ -7,6 +7,18 @@
   const RESOURCE_INDEX_KEY = "knowledge_admin_resource_index";
   const $ = (id) => document.getElementById(id);
 
+  // Browser-only demo gate. A real authorization check must also run on the server.
+  const signedInUser = window.Auth && Auth.getUser();
+  if (!signedInUser) {
+    location.replace("login.html?next=admin.html");
+    return;
+  }
+  if (!Auth.isAdmin()) {
+    Auth.setWelcome?.("Admin access is restricted to administrator accounts.");
+    location.replace("index.html");
+    return;
+  }
+
   function readUsers() {
     try {
       const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");

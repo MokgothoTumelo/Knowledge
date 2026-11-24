@@ -52,7 +52,7 @@
     const email = read(sessionStorage, SESSION_KEY, null) || read(localStorage, SESSION_KEY, null);
     if (!email) return null;
     const u = getUsers().find((x) => x.email === email);
-    return u ? { name: u.name, email: u.email } : null;
+    return u ? { name: u.name, email: u.email, grade: u.grade || "", subjects: Array.isArray(u.subjects) ? u.subjects : [], role: u.role === "admin" ? "admin" : "student" } : null;
   }
 
   function startSession(email, remember) {
@@ -61,14 +61,14 @@
     write(remember ? localStorage : sessionStorage, SESSION_KEY, email);
   }
 
-  async function signUp(name, email, password) {
+  async function signUp(name, email, password, grade, subjects) {
     email = email.trim().toLowerCase();
     const users = getUsers();
     if (users.some((u) => u.email === email)) {
       return { ok: false, field: "email", message: "An account with this email already exists. Sign in instead." };
     }
     const salt = makeSalt();
-    users.push({ name: name.trim(), email, salt, hash: await hashPassword(password, salt), createdAt: Date.now() });
+    users.push({ name: name.trim(), email, grade: String(grade || ""), subjects: Array.isArray(subjects) ? subjects : [], role: "student", salt, hash: await hashPassword(password, salt), createdAt: Date.now() });
     write(localStorage, USERS_KEY, users);
     startSession(email, true);
     return { ok: true };
@@ -90,6 +90,11 @@
   function signOut() {
     sessionStorage.removeItem(SESSION_KEY);
     localStorage.removeItem(SESSION_KEY);
+  }
+
+  function isAdmin() {
+    const user = getUser();
+    return !!user && user.role === "admin";
   }
 
   /* ---------- redirect helpers ---------- */
@@ -120,7 +125,7 @@
     return false;
   }
 
-  window.Auth = { getUser, signUp, signIn, signOut, require, safeNext, loginUrl, startSession };
+  window.Auth = { getUser, signUp, signIn, signOut, require, safeNext, loginUrl, startSession, isAdmin };
 
   /* ---------- toast (works on pages without script.js) ---------- */
   function notify(message) {
@@ -146,6 +151,9 @@
     const host = document.getElementById("authArea");
     const user = getUser();
     document.body.classList.toggle("is-guest", !user);
+    document.querySelectorAll('a[href="admin.html"], a[href="./admin.html"]').forEach((link) => {
+      link.hidden = !user || user.role !== "admin";
+    });
     if (!host) return;
 
     if (user) {

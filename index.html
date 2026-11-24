@@ -25,20 +25,20 @@
       <a href="papers.html"><i data-lucide="file-text"></i>Question Papers</a>
       <a href="books.html"><i data-lucide="book-open"></i>Books</a>
       <a href="index.html#uploadedResources"><i data-lucide="folder-open"></i>Resources</a>
-      <a href="#library"><i data-lucide="bookmark"></i>My Library</a>
+      <a href="favorites.html"><i data-lucide="bookmark"></i>My Library</a>
       <a href="downloads.html"><i data-lucide="download"></i>Downloads</a>
       <a href="favorites.html"><i data-lucide="heart"></i>Favorites</a>
       <a href="subjects.html"><i data-lucide="blocks"></i>My Subjects</a>
       
       
       
-      <a href="admin.html"><i data-lucide="layout-dashboard"></i>Admin workspace</a>
+      <a class="admin-link" href="admin.html"><i data-lucide="layout-dashboard"></i>Admin workspace</a>
     </nav>
 
     <div class="organize-card">
       <h4>Stay Organized</h4>
       <p>Save your favorite resources and access them anytime.</p>
-      <button>Explore My Library</button>
+      <button onclick="location.href='favorites.html'">Explore My Library</button>
       <div class="folders">
         <i data-lucide="folder"></i>
         <i data-lucide="folder-open"></i>
@@ -67,9 +67,9 @@
           <p class="eyebrow">YOUR STUDY COMPANION</p>
           <h1>All Your Academic<br />Resources in One Place</h1>
           <p>Access question papers, books, and recorded tutorials anytime, anywhere. Learn smarter and achieve more.</p>
-          <button class="primary">
+          <a class="primary" href="#uploadedResources">
             Explore Resources <i data-lucide="arrow-right"></i>
-          </button>
+          </a>
         </div>
 
         <div class="hero-visual">
@@ -109,9 +109,9 @@
         <article class="quick orange">
           <div class="icon-box"><i data-lucide="play"></i></div>
           <div>
-            <h3>Tutorials</h3>
-            <p>Recorded lectures and<br />tutorial sessions</p>
-            <a href="#tutorials">Watch Now <i data-lucide="arrow-right"></i></a>
+            <h3>My Subjects</h3>
+            <p>Resources for your grade<br />and selected subjects</p>
+            <a href="subjects.html">Browse Subjects <i data-lucide="arrow-right"></i></a>
           </div>
         </article>
 
@@ -120,7 +120,7 @@
           <div>
             <h3>My Library</h3>
             <p>Your saved resources<br />in one place</p>
-            <a href="#library">View Library <i data-lucide="arrow-right"></i></a>
+            <a href="favorites.html">View Library <i data-lucide="arrow-right"></i></a>
           </div>
         </article>
       </section>
