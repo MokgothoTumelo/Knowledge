@@ -847,15 +847,41 @@ if (document.getElementById("booksGrid")) {
    HOME PAGE
    ============================================================ */
 if (!document.getElementById("booksGrid") && !document.getElementById("papersGrid") && !document.getElementById("favoritesGrid")) {
-  document.querySelectorAll(".filters button").forEach(function (button) {
-    if (button.dataset.filter) return;
-    button.addEventListener("click", function () {
-      const selected = document.querySelector(".filters .selected");
-      if (selected) selected.classList.remove("selected");
-      button.classList.add("selected");
-      showToast("Showing " + button.textContent + " resources");
+  const homeFilters = document.querySelector(".explore .filters");
+  if (homeFilters) {
+    const homeRows = Array.from(document.querySelectorAll(".resource-card li"));
+    const emptyNotice = document.createElement("p");
+    emptyNotice.className = "home-filter-empty";
+    emptyNotice.textContent = "No resources in this category yet. Try another subject.";
+    emptyNotice.hidden = true;
+    document.querySelector(".resource-grid")?.after(emptyNotice);
+    homeRows.forEach(function (row) {
+      const title = (row.querySelector("strong")?.textContent || "").toLowerCase();
+      row.dataset.category = /discrete|physics|calculus/.test(title) ? "science" : "engineering";
     });
-  });
+    homeFilters.addEventListener("click", function (event) {
+      const button = event.target.closest("button[data-category]");
+      if (!button) return;
+      homeFilters.querySelectorAll("button").forEach(function (item) {
+        const active = item === button;
+        item.classList.toggle("selected", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      const category = button.dataset.category;
+      let matches = 0;
+      document.querySelectorAll(".resource-card").forEach(function (card) {
+        let visibleRows = 0;
+        card.querySelectorAll("li").forEach(function (row) {
+          const visible = category === "all" || row.dataset.category === category;
+          row.hidden = !visible;
+          if (visible) visibleRows += 1;
+        });
+        card.hidden = visibleRows === 0;
+        matches += visibleRows;
+      });
+      emptyNotice.hidden = matches > 0;
+    });
+  }
   document.querySelectorAll(".resource-card button").forEach(function (button) {
     button.addEventListener("click", function () {
       showToast("Your download has started");
