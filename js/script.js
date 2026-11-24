@@ -51,225 +51,9 @@ function saveJSON(key, value) {
 }
 
 /* ---------- Shared content data ---------- */
-const BOOKS = [
-  {
-    id: "ds-cplus",
-    type: "book",
-    title: "Data Structures and Algorithms in C++",
-    author: "Mark Allen Weiss",
-    category: "engineering",
-    categoryLabel: "Engineering",
-    description: "A comprehensive guide to data structures and algorithm analysis using C++. Covers arrays, linked lists, trees, graphs, sorting, and searching with clear examples and exercises.",
-    shortDesc: "Classic DSA textbook with C++ implementations and analysis.",
-    coverColor: "navy",
-    coverLabel: "DATA\nSTRUCTURES",
-    pages: 704,
-    year: 2013,
-    readUrl: "#read-ds-cplus",
-    downloadUrl: "#download-ds-cplus",
-  },
-  {
-    id: "os-concepts",
-    type: "book",
-    title: "Operating System Concepts",
-    author: "Abraham Silberschatz",
-    category: "engineering",
-    categoryLabel: "Engineering",
-    description: "The definitive guide to operating systems. Explains processes, memory management, file systems, concurrency, and security with real-world examples from modern OSes.",
-    shortDesc: "9th Edition – processes, memory, concurrency & more.",
-    coverColor: "gold",
-    coverLabel: "OPERATING\nSYSTEMS",
-    pages: 944,
-    year: 2012,
-    readUrl: "#read-os-concepts",
-    downloadUrl: "#download-os-concepts",
-  },
-  {
-    id: "eng-math-1",
-    type: "book",
-    title: "Engineering Mathematics Vol. 1",
-    author: "B. S. Grewal",
-    category: "engineering",
-    categoryLabel: "Engineering",
-    description: "Essential mathematics for engineering students covering calculus, differential equations, linear algebra, and vector calculus with numerous solved problems.",
-    shortDesc: "Core mathematics for first-year engineering students.",
-    coverColor: "teal",
-    coverLabel: "ENGINEERING\nMATHEMATICS",
-    pages: 1236,
-    year: 2014,
-    readUrl: "#read-eng-math-1",
-    downloadUrl: "#download-eng-math-1",
-  },
-  {
-    id: "dbms",
-    type: "book",
-    title: "Database System Concepts",
-    author: "Silberschatz, Korth & Sudarshan",
-    category: "engineering",
-    categoryLabel: "Engineering",
-    description: "Thorough introduction to database systems covering relational model, SQL, normalization, transactions, and storage. Widely used in undergraduate courses.",
-    shortDesc: "Relational databases, SQL, and transaction management.",
-    coverColor: "navy",
-    coverLabel: "DATABASE\nSYSTEMS",
-    pages: 1376,
-    year: 2019,
-    readUrl: "#read-dbms",
-    downloadUrl: "#download-dbms",
-  },
-  {
-    id: "discrete-math",
-    type: "book",
-    title: "Discrete Mathematics and Its Applications",
-    author: "Kenneth H. Rosen",
-    category: "science",
-    categoryLabel: "Science",
-    description: "Comprehensive treatment of discrete math topics including logic, sets, combinatorics, graph theory, and number theory. Ideal for computer science foundations.",
-    shortDesc: "Logic, combinatorics, graphs, and number theory.",
-    coverColor: "teal",
-    coverLabel: "DISCRETE\nMATH",
-    pages: 1072,
-    year: 2018,
-    readUrl: "#read-discrete-math",
-    downloadUrl: "#download-discrete-math",
-  },
-  {
-    id: "physics-1",
-    type: "book",
-    title: "University Physics with Modern Physics",
-    author: "Young & Freedman",
-    category: "science",
-    categoryLabel: "Science",
-    description: "A rigorous calculus-based physics textbook covering mechanics, waves, thermodynamics, electromagnetism, optics, and modern physics.",
-    shortDesc: "Calculus-based physics for science & engineering.",
-    coverColor: "gold",
-    coverLabel: "UNIVERSITY\nPHYSICS",
-    pages: 1600,
-    year: 2020,
-    readUrl: "#read-physics-1",
-    downloadUrl: "#download-physics-1",
-  },
-  {
-    id: "accounting",
-    type: "book",
-    title: "Financial Accounting",
-    author: "Weygandt, Kimmel & Kieso",
-    category: "commerce",
-    categoryLabel: "Commerce",
-    description: "Clear introduction to financial accounting principles, the accounting cycle, financial statements, and analysis for business students.",
-    shortDesc: "Accounting cycle, statements, and analysis.",
-    coverColor: "navy",
-    coverLabel: "FINANCIAL\nACCOUNTING",
-    pages: 864,
-    year: 2021,
-    readUrl: "#read-accounting",
-    downloadUrl: "#download-accounting",
-  },
-  {
-    id: "economics",
-    type: "book",
-    title: "Principles of Economics",
-    author: "N. Gregory Mankiw",
-    category: "commerce",
-    categoryLabel: "Commerce",
-    description: "Accessible introduction to micro and macroeconomics covering supply and demand, markets, GDP, inflation, and policy.",
-    shortDesc: "Micro & macro fundamentals with real-world examples.",
-    coverColor: "gold",
-    coverLabel: "PRINCIPLES OF\nECONOMICS",
-    pages: 888,
-    year: 2020,
-    readUrl: "#read-economics",
-    downloadUrl: "#download-economics",
-  },
-  {
-    id: "literature",
-    type: "book",
-    title: "The Norton Anthology of English Literature",
-    author: "Stephen Greenblatt (Ed.)",
-    category: "arts",
-    categoryLabel: "Arts",
-    description: "Authoritative collection of major works of English literature from the Middle Ages to the present, with critical introductions and notes.",
-    shortDesc: "Major works of English literature across periods.",
-    coverColor: "teal",
-    coverLabel: "NORTON\nANTHOLOGY",
-    pages: 3200,
-    year: 2018,
-    readUrl: "#read-literature",
-    downloadUrl: "#download-literature",
-  },
-  {
-    id: "management",
-    type: "book",
-    title: "Management: Leading & Collaborating",
-    author: "Thomas S. Bateman",
-    category: "management",
-    categoryLabel: "Management",
-    description: "Practical guide to management principles covering planning, organizing, leading, and controlling in modern organizations.",
-    shortDesc: "Planning, leading, and organizational behavior.",
-    coverColor: "navy",
-    coverLabel: "MANAGEMENT",
-    pages: 672,
-    year: 2019,
-    readUrl: "#read-management",
-    downloadUrl: "#download-management",
-  },
-  {
-    id: "constitutional-law",
-    type: "book",
-    title: "Constitutional Law: Principles and Policies",
-    author: "Erwin Chemerinsky",
-    category: "law",
-    categoryLabel: "Law",
-    description: "Comprehensive treatment of constitutional law topics including judicial review, federalism, individual rights, and equal protection.",
-    shortDesc: "Judicial review, rights, and constitutional doctrine.",
-    coverColor: "gold",
-    coverLabel: "CONSTITUTIONAL\nLAW",
-    pages: 1504,
-    year: 2019,
-    readUrl: "#read-constitutional-law",
-    downloadUrl: "#download-constitutional-law",
-  },
-  {
-    id: "calculus",
-    type: "book",
-    title: "Calculus: Early Transcendentals",
-    author: "James Stewart",
-    category: "science",
-    categoryLabel: "Science",
-    description: "Widely adopted calculus textbook covering limits, derivatives, integrals, series, and multivariable calculus with applications.",
-    shortDesc: "Limits, derivatives, integrals, and series.",
-    coverColor: "teal",
-    coverLabel: "CALCULUS",
-    pages: 1368,
-    year: 2020,
-    readUrl: "#read-calculus",
-    downloadUrl: "#download-calculus",
-  },
-];
-
-const PAPERS = [
-  { id: "ds-2023", type: "paper", title: "Data Structures – 2023", subject: "engineering", subjectLabel: "Engineering", year: 2023, size: "2.4 MB", pages: 8, description: "End-semester examination paper covering arrays, linked lists, stacks, queues, trees, and graph algorithms. Includes both theoretical and coding questions.", viewUrl: "#view-ds-2023", downloadUrl: "#download-ds-2023" },
-  { id: "engmath-2022", type: "paper", title: "Engineering Mathematics – 2022", subject: "engineering", subjectLabel: "Engineering", year: 2022, size: "1.8 MB", pages: 6, description: "Previous year paper on calculus, differential equations, linear algebra, and vector calculus for engineering students.", viewUrl: "#view-engmath-2022", downloadUrl: "#download-engmath-2022" },
-  { id: "dbms-2023", type: "paper", title: "Database Management Systems – 2023", subject: "engineering", subjectLabel: "Engineering", year: 2023, size: "2.1 MB", pages: 7, description: "Covers relational model, SQL queries, normalization, transactions, and indexing. Suitable for mid and end semester practice.", viewUrl: "#view-dbms-2023", downloadUrl: "#download-dbms-2023" },
-  { id: "os-2024", type: "paper", title: "Operating Systems – 2024", subject: "engineering", subjectLabel: "Engineering", year: 2024, size: "2.0 MB", pages: 8, description: "Processes, memory management, file systems, concurrency, and deadlock questions from the 2024 end-semester exam.", viewUrl: "#view-os-2024", downloadUrl: "#download-os-2024" },
-  { id: "discrete-2021", type: "paper", title: "Discrete Mathematics – 2021", subject: "science", subjectLabel: "Science", year: 2021, size: "1.6 MB", pages: 6, description: "Logic, sets, combinatorics, graph theory, and number theory. Ideal for computer science foundation practice.", viewUrl: "#view-discrete-2021", downloadUrl: "#download-discrete-2021" },
-  { id: "physics-2020", type: "paper", title: "University Physics – 2020", subject: "science", subjectLabel: "Science", year: 2020, size: "2.5 MB", pages: 10, description: "Mechanics, waves, thermodynamics, and electromagnetism questions from the 2020 examination.", viewUrl: "#view-physics-2020", downloadUrl: "#download-physics-2020" },
-  { id: "calculus-2025", type: "paper", title: "Calculus – 2025", subject: "science", subjectLabel: "Science", year: 2025, size: "1.9 MB", pages: 7, description: "Limits, derivatives, integrals, series, and multivariable calculus. Latest pattern for 2025.", viewUrl: "#view-calculus-2025", downloadUrl: "#download-calculus-2025" },
-  { id: "accounting-2023", type: "paper", title: "Financial Accounting – 2023", subject: "commerce", subjectLabel: "Commerce", year: 2023, size: "1.7 MB", pages: 6, description: "Accounting cycle, financial statements, and analysis. Practice paper for commerce students.", viewUrl: "#view-accounting-2023", downloadUrl: "#download-accounting-2023" },
-  { id: "economics-2022", type: "paper", title: "Principles of Economics – 2022", subject: "commerce", subjectLabel: "Commerce", year: 2022, size: "1.5 MB", pages: 5, description: "Micro and macroeconomics: supply & demand, markets, GDP, inflation, and policy questions.", viewUrl: "#view-economics-2022", downloadUrl: "#download-economics-2022" },
-  { id: "literature-2019", type: "paper", title: "English Literature – 2019", subject: "arts", subjectLabel: "Arts", year: 2019, size: "1.4 MB", pages: 5, description: "Essay and short-answer questions covering major works of English literature across periods.", viewUrl: "#view-literature-2019", downloadUrl: "#download-literature-2019" },
-  { id: "management-2024", type: "paper", title: "Principles of Management – 2024", subject: "management", subjectLabel: "Management", year: 2024, size: "1.8 MB", pages: 6, description: "Planning, organizing, leading, and controlling. Case-based and theory questions from 2024.", viewUrl: "#view-management-2024", downloadUrl: "#download-management-2024" },
-  { id: "law-2021", type: "paper", title: "Constitutional Law – 2021", subject: "law", subjectLabel: "Law", year: 2021, size: "2.2 MB", pages: 8, description: "Judicial review, federalism, fundamental rights, and equal protection questions.", viewUrl: "#view-law-2021", downloadUrl: "#download-law-2021" },
-  { id: "ds-2025", type: "paper", title: "Data Structures – 2025", subject: "engineering", subjectLabel: "Engineering", year: 2025, size: "2.3 MB", pages: 8, description: "Updated 2025 paper with emphasis on trees, graphs, hashing, and algorithm complexity.", viewUrl: "#view-ds-2025", downloadUrl: "#download-ds-2025" },
-  { id: "dbms-2026", type: "paper", title: "Database Management Systems – 2026", subject: "engineering", subjectLabel: "Engineering", year: 2026, size: "2.0 MB", pages: 7, description: "Latest pattern paper including NoSQL concepts, advanced SQL, and transaction management.", viewUrl: "#view-dbms-2026", downloadUrl: "#download-dbms-2026" },
-  { id: "os-2018", type: "paper", title: "Operating Systems – 2018", subject: "engineering", subjectLabel: "Engineering", year: 2018, size: "1.9 MB", pages: 7, description: "Classic OS paper covering process scheduling, memory, and synchronization from 2018.", viewUrl: "#view-os-2018", downloadUrl: "#download-os-2018" },
-  { id: "engmath-2026", type: "paper", title: "Engineering Mathematics – 2026", subject: "engineering", subjectLabel: "Engineering", year: 2026, size: "2.1 MB", pages: 8, description: "Most recent engineering mathematics paper focusing on advanced calculus and linear algebra.", viewUrl: "#view-engmath-2026", downloadUrl: "#download-engmath-2026" },
-];
-
-const TUTORIALS = [
-  { id: "tut-ds-full", type: "tutorial", title: "Data Structures – Full Course", author: "Prof. John Doe", category: "engineering", categoryLabel: "Engineering", duration: "1:24:30", description: "Complete walkthrough of data structures including arrays, linked lists, stacks, queues, trees, and graphs with coding examples.", shortDesc: "Full course on core data structures.", thumbClass: "one" },
-  { id: "tut-dbms", type: "tutorial", title: "Database Management System", author: "Prof. Jane Smith", category: "engineering", categoryLabel: "Engineering", duration: "1:05:15", description: "Relational model, SQL, normalization, and transaction management explained with practical demos.", shortDesc: "SQL and relational database fundamentals.", thumbClass: "two" },
-  { id: "tut-discrete", type: "tutorial", title: "Discrete Mathematics", author: "Prof. Alex Brown", category: "science", categoryLabel: "Science", duration: "58:40", description: "Logic, sets, combinatorics, graph theory, and number theory for computer science students.", shortDesc: "Foundational discrete math for CS.", thumbClass: "three" },
-];
+const BOOKS = [];
+const PAPERS = [];
+const TUTORIALS = [];
 
 const ALL_CONTENT = [...BOOKS, ...PAPERS, ...TUTORIALS];
 
@@ -847,41 +631,15 @@ if (document.getElementById("booksGrid")) {
    HOME PAGE
    ============================================================ */
 if (!document.getElementById("booksGrid") && !document.getElementById("papersGrid") && !document.getElementById("favoritesGrid")) {
-  const homeFilters = document.querySelector(".explore .filters");
-  if (homeFilters) {
-    const homeRows = Array.from(document.querySelectorAll(".resource-card li"));
-    const emptyNotice = document.createElement("p");
-    emptyNotice.className = "home-filter-empty";
-    emptyNotice.textContent = "No resources in this category yet. Try another subject.";
-    emptyNotice.hidden = true;
-    document.querySelector(".resource-grid")?.after(emptyNotice);
-    homeRows.forEach(function (row) {
-      const title = (row.querySelector("strong")?.textContent || "").toLowerCase();
-      row.dataset.category = /discrete|physics|calculus/.test(title) ? "science" : "engineering";
+  document.querySelectorAll(".filters button").forEach(function (button) {
+    if (button.dataset.filter) return;
+    button.addEventListener("click", function () {
+      const selected = document.querySelector(".filters .selected");
+      if (selected) selected.classList.remove("selected");
+      button.classList.add("selected");
+      showToast("Showing " + button.textContent + " resources");
     });
-    homeFilters.addEventListener("click", function (event) {
-      const button = event.target.closest("button[data-category]");
-      if (!button) return;
-      homeFilters.querySelectorAll("button").forEach(function (item) {
-        const active = item === button;
-        item.classList.toggle("selected", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      const category = button.dataset.category;
-      let matches = 0;
-      document.querySelectorAll(".resource-card").forEach(function (card) {
-        let visibleRows = 0;
-        card.querySelectorAll("li").forEach(function (row) {
-          const visible = category === "all" || row.dataset.category === category;
-          row.hidden = !visible;
-          if (visible) visibleRows += 1;
-        });
-        card.hidden = visibleRows === 0;
-        matches += visibleRows;
-      });
-      emptyNotice.hidden = matches > 0;
-    });
-  }
+  });
   document.querySelectorAll(".resource-card button").forEach(function (button) {
     button.addEventListener("click", function () {
       showToast("Your download has started");
@@ -900,7 +658,8 @@ if (!document.getElementById("booksGrid") && !document.getElementById("papersGri
       if (explore) explore.scrollIntoView({ behavior: "smooth" });
     });
   }
-  renderRecentlyViewed();
+  const recentSection = document.getElementById("recentlyViewed");
+  if (recentSection) recentSection.hidden = true;
 }
 
 function renderRecentlyViewed() {
@@ -1038,7 +797,7 @@ if (document.getElementById("favoritesGrid")) {
   renderFavoritesPage();
 }
 
-initGlobalSearch();
+/* Search is handled against uploaded resources by resources.js. */
 
 document.querySelector(".notification")?.addEventListener("click", function () {
   showToast("You have 3 new notifications");

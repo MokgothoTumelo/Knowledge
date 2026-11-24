@@ -10,13 +10,90 @@ html {
     display: none !important;
 }
 
-.home-filter-empty {
-    margin: 18px 0;
-    padding: 18px 20px;
-    border: 1px dashed #cbd5e4;
+.resource-grade-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #5e6c83;
+    font-size: 13px;
+}
+
+.resource-grade-filter select {
+    min-height: 38px;
+    padding: 0 10px;
+    border: 1px solid #dfe5ee;
+    border-radius: 8px;
+    background: #fff;
+    color: #253650;
+    font: 14px "DM Sans", sans-serif;
+}
+
+.home-resource-list,
+.uploaded-empty {
+    display: grid;
+    gap: 12px;
+}
+
+.uploaded-resource {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 16px;
+    border: 1px solid #e6ebf3;
     border-radius: 10px;
-    color: #526177;
-    background: #f8faff;
+    background: #fff;
+}
+
+.uploaded-resource-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #eef3ff;
+    color: #2767c8;
+}
+
+.uploaded-resource-icon i { width: 20px; height: 20px; }
+.uploaded-resource-copy { min-width: 0; }
+.uploaded-resource-copy h3 { margin: 0 0 5px; color: #1d2d49; font-size: 14px; }
+.uploaded-resource-copy p { overflow: hidden; margin: 0; color: #728097; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+
+.uploaded-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 11px;
+    border: 1px solid #dfe5ee;
+    border-radius: 7px;
+    background: #fff;
+    color: #40516d;
+    font: 600 12px "DM Sans", sans-serif;
+    cursor: pointer;
+}
+
+.uploaded-download:hover { border-color: #a9c5f4; color: #1668ed; }
+.uploaded-download i { width: 15px; height: 15px; }
+
+.uploaded-empty {
+    justify-items: center;
+    padding: 36px 18px;
+    border: 1px dashed #d6deea;
+    border-radius: 10px;
+    background: #fbfcff;
+    color: #68758c;
+    text-align: center;
+}
+
+.uploaded-empty > i { width: 28px; height: 28px; color: #9aa8bb; }
+.uploaded-empty h3 { margin: 0; color: #2b3a54; font: 700 16px "Plus Jakarta Sans", sans-serif; }
+.uploaded-empty p { margin: 0; font-size: 13px; }
+
+@media (max-width: 600px) {
+    .uploaded-resource { grid-template-columns: auto minmax(0, 1fr); }
+    .uploaded-download { grid-column: 2; justify-self: start; }
+    .uploaded-resource-copy p { white-space: normal; }
 }
 
 body {
