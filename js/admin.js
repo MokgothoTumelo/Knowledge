@@ -28,6 +28,9 @@
   }
   function openDB() {
     return new Promise((resolve, reject) => {
+      if (location.protocol === "file:") {
+        return reject(new Error("This page was opened directly from a file. Open the hosted website or a local web address (localhost) before uploading resources."));
+      }
       if (!window.indexedDB) return reject(new Error("File storage is unavailable in this browser."));
       const request = indexedDB.open(DB_NAME, DB_VERSION);
       request.onupgradeneeded = () => {
